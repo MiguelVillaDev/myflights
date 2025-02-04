@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from .models import Flight, Category, Belt, Services, PayloadCompartment
+from .models import Flight, Category, Belt, Services, PayloadCompartment, Rute, Departure, Arrive, Airline, Aircraft, Gate
+
 
 
 class FlightSerializer (serializers.ModelSerializer):
@@ -13,10 +14,10 @@ class CategorySerializer (serializers.ModelSerializer):
         model: Category
         fields = '__all__'
 
-""" class RuteSerializer (serializers.ModelSerializer):
+class RuteSerializer (serializers.ModelSerializer):
     class Meta:
         model = Rute
-        fields = '__all__' """
+        fields = '__all__'
 
 
 class BeltSerializer (serializers.ModelSerializer):
@@ -36,3 +37,30 @@ class PCSerializer (serializers.ModelSerializer):
         model = PayloadCompartment
         fields = '__all__'
  
+class DepartureSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Departure
+        fields = '__all__'
+
+
+class ArriveSerializers (serializers.ModelSerializer):
+    class Meta:
+        model = Arrive
+        fields = '__all__'
+
+
+
+class AirlineSerializers (serializers.ModelSerializer):
+    class Meta:
+        model = Airline
+        fields = '__all__'
+
+class AircraftSerializers (serializers.ModelSerializer):
+    class Meta:
+        model = Aircraft
+        fields = '__all__'
+
+class GateSerializers (serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = '__all__'

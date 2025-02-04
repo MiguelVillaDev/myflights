@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .models import Flight, Category, Belt, Services, PayloadCompartment
-from . serializers import FlightSerializer, CategorySerializer, BeltSerializer, ServicesSerializer ,PCSerializer
+from .models import Flight, Category, Belt, Services, PayloadCompartment, Rute, Departure, Arrive, Airline, Aircraft, Gate
+from . serializers import FlightSerializer, CategorySerializer, BeltSerializer, ServicesSerializer ,PCSerializer, RuteSerializer, DepartureSerializer, ArriveSerializers, AirlineSerializers, AircraftSerializers, GateSerializers
 
 # Create your views here.
 
@@ -17,9 +17,9 @@ class CategoryView (viewsets.ModelViewSet):
     queryset = Category.objects.all()
 
 
-""" class RuteView (viewsets.ModelViewSet):
+class RuteView (viewsets.ModelViewSet):
     serializer_class = RuteSerializer
-    queryset = Rute.objects.all() """
+    queryset = Rute.objects.all()
 
 
 class BeltView (viewsets.ModelViewSet):
@@ -36,3 +36,26 @@ class ServicesView (viewsets.ModelViewSet):
 class PCView (viewsets.ModelViewSet):
     serializer_class = PCSerializer
     queryset = PayloadCompartment.objects.all()
+
+
+class DepartureView (viewsets.ModelViewSet):
+    serializer_class = DepartureSerializer
+    queryset = Departure.objects.all()
+
+class ArriveView (viewsets.ModelViewSet):
+    serializer_class = ArriveSerializers
+    queryset = Arrive.objects.all()
+
+
+class AirlineView (viewsets.ModelViewSet):
+    serializer_class = AirlineSerializers
+    queryset = Airline.objects.all()
+
+
+class AircraftView (viewsets.ModelViewSet):
+    serializer_class = AircraftSerializers
+    queryset = Aircraft.objects.all()
+
+class GateView (viewsets.ModelViewSet):
+    serializer_class = GateSerializers
+    queryset = Gate.objects.all()

@@ -124,10 +124,10 @@ class Flight (models.Model):
     idFlight = models.AutoField(primary_key=True,unique=True)
     date = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, blank=False, on_delete=models.CASCADE)
-    aircraft = models.ForeignKey(Aircraft, blank=False,on_delete=models.CASCADE)
-    arrive = models.OneToOneField(Arrive, blank=True, on_delete=models.CASCADE)
-    departure = models.OneToOneField(Departure, blank=True, on_delete=models.CASCADE)
-    service = models.ForeignKey(Services, blank=True, on_delete=models.CASCADE)
+    aircraft = models.ForeignKey(Aircraft, blank=False, null=True,on_delete=models.CASCADE)
+    arrive = models.OneToOneField(Arrive, blank=True, null=True, on_delete=models.CASCADE)
+    departure = models.OneToOneField(Departure, blank=True, null=True, on_delete=models.CASCADE)
+    service = models.ForeignKey(Services, blank=True, null=True, on_delete=models.CASCADE)
     team = models.ManyToManyField(AssignmentsTeams, blank=True)
 
 
