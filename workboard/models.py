@@ -12,7 +12,7 @@ class Category (models.Model):
         return self.type
     
 
-""" class Rute (models.Model):
+class Rute (models.Model):
     idRute = models.AutoField(primary_key=True, unique=True)
     origin = models.CharField(max_length=10)
     destination = models.CharField(max_length=10)
@@ -20,7 +20,7 @@ class Category (models.Model):
 
     def __str__(self):
         rute = self.origin + ' ' +  self.destination
-        return rute """
+        return rute
     
 
 class Belt (models.Model):
@@ -53,35 +53,88 @@ class PayloadCompartment(models.Model):
     avih = models.IntegerField(null=True)
     date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return super().__str__()
+
+    
+    
+class Gate (models.Model):
+    idGate = models.AutoField(primary_key=True, unique=True)
+    numberGate = models.CharField(max_length=15)
+    remote = models.BooleanField()
+
+    def __str__(self):
+        return super().__str__()
+    
+
+class Departure (models.Model):
+    idDeparture = models.AutoField(primary_key=True, unique=True)
+    number = models.IntegerField(blank=False)
+    STD = models.TimeField()
+    ATD = models.TimeField(blank=True)
+    date = models.DateTimeField()
+    rute = models.ManyToManyField(Rute,blank=False)
+    gate = models.ForeignKey(Gate, blank=True, on_delete=models.CASCADE)
+    payload = models.OneToOneField(PayloadCompartment, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return super().__str__()
 
 
+
+class Arrive (models.Model):
+    idArrive = models.AutoField(primary_key=True, unique=True)
+    number = models.IntegerField(blank=False)
+    STA = models.TimeField(blank=False)
+    ATA = models.TimeField(blank=True)
+    date = models.DateTimeField()
+    rute = models.ManyToManyField(Rute,blank=False)
+    gate = models.ForeignKey(Gate, blank=True, on_delete=models.CASCADE)
+    belt = models.ForeignKey(Belt, blank=True, on_delete=models.CASCADE)
+    payload = models.OneToOneField(PayloadCompartment, blank=True, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Aircraft (models.Model):
+    idAircraft = models.AutoField(primary_key=True, unique=True)
+    regristration = models.CharField(max_length=15, blank=False)
+    material = models.CharField(max_length=10)
+    brand = models.CharField(max_length=25)
+    
+
+    def __str__(self):
+        return super().__str__()
+
+class Airline (models.Model):
+    idAirline = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=20)
+    logo = models.ImageField(blank=True)
+    date  =models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return super().__str__()
 
 
 
 class Flight (models.Model):
     idFlight = models.AutoField(primary_key=True,unique=True)
-    airline = models.CharField(max_length=50,null=False)
-    logo = models.ImageField(null=True)
-    arriveNumber = models.IntegerField(null=True, blank=True)
-    departureNumber = models.IntegerField(null=True, blank=True)
-    registration = models.CharField(max_length=6)
-    material = models.CharField(max_length=6)
-    date = models.DateField(blank=False)
-    gate = models.CharField(max_length=10)
-    STA  = models.TimeField()
-    STD = models.TimeField()
-    ATA = models.TimeField()
-    ATD = models.TimeField(blank=True)
-    category = models.ForeignKey(Category, null=False,on_delete=models.CASCADE)
-    belt = models.ForeignKey(Belt, null=True, on_delete=models.CASCADE)
-    services= models.ManyToManyField(Services,blank=True)
-    payload = models.ForeignKey(PayloadCompartment, null=True, blank=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(Category, blank=False, on_delete=models.CASCADE)
+    aircraft = models.ForeignKey(Aircraft, blank=False,on_delete=models.CASCADE)
+    arrive = models.OneToOneField(Arrive, blank=True, on_delete=models.CASCADE)
+    departure = models.OneToOneField(Departure, blank=True, on_delete=models.CASCADE)
+    service = models.ForeignKey(Services, blank=True, on_delete=models.CASCADE)
     team = models.ManyToManyField(AssignmentsTeams, blank=True)
 
+
     def __str__(self):
-        datos = str(self.arriveNumber) + ' ' + str(self.departureNumber) + ' ' + self.registration
-        return datos
-    
+        return super().__str__()
+
+
 
 
 
